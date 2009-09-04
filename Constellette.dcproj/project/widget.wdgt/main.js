@@ -76,6 +76,7 @@ function showBack(event)
 
     if (window.widget) {
         setTimeout('widget.performTransition();', 0);
+        retrievePrefs();
     }
 }
 
@@ -92,6 +93,7 @@ function showFront(event)
 
     if (window.widget) {
         widget.prepareForTransition("ToFront");
+        stow_prefs();
     }
 
     front.style.display="block";
@@ -107,4 +109,31 @@ if (window.widget) {
     widget.onhide = hide;
     widget.onshow = show;
     widget.onsync = sync;
+}
+
+
+function stow_prefs() {
+    widget.setPreferenceForKey(idField.value, "rswID");
+
+    // Password is not normally displayed; don't overwrite
+    // a valid pw with blanks.  a placeholder would be nice.
+    if (passwordField.value && passwordField.value.length > 0) {
+        widget.setPreferenceForKey(passwordField.value, "rswPassword");
+        passwordField.value = "";  // clear so secret not revealed in future.
+    }
+
+    widget.setPreferenceForKey(gameField.value, "rswGameName");
+}
+
+
+function retrievePrefs() {
+    var idPref = widget.preferenceForKey("rswID"); 
+    if (idPref && idPref.length > 0) {
+        idField.value = idPref;
+    }
+
+    var gamePref = widget.preferenceForKey("rswGameName"); 
+    if (gamePref && gamePref.length > 0) {
+        gameField.value = gamePref;
+    }    
 }
