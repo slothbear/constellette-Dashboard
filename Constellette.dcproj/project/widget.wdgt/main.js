@@ -123,6 +123,11 @@ function stow_prefs() {
     }
 
     widget.setPreferenceForKey(gameField.value, "rswGameName");
+    
+    // Set the fields on the front & update everything
+    document.getElementById("gameDisplay").innerText = gameField.value;
+    document.getElementById("turnsDisplay").innerText = "--";
+    updateOutstanding();
 }
 
 
@@ -137,3 +142,58 @@ function retrievePrefs() {
         gameField.value = gamePref;
     }    
 }
+
+function updateOutstanding() {
+    statusMessage.innerText = "... updating ..";
+    statusIndicator.object.setValue(10);
+    
+    var postDataString = postData();
+    $.ajax({
+        type: "POST",
+        url: "https://rswgame.com/xml",
+        cache: false,
+        processData: false,
+        data: postDataString,
+        success: function(data){ processGames(data); },
+        contentType: "text/xml",
+        dataType: "xml"
+    });
+}
+
+function postData() {
+    return "<?xml version='1.0'?>" +
+    "<request command='list'>" + 
+    "<parameter keyword='accountId' value='" +
+    widget.preferenceForKey("rswID") + "' />" + 
+    "<parameter keyword='password' value='" + 
+    widget.preferenceForKey("rswPassword") + "' />" + 
+    "<parameter keyword='onlyMine' value='true' />" +
+    "<parameter keyword='format' value='xml' />" +
+    "<parameter keyword='active' value='true' />" +
+    "</request>";
+}
+
+function processGames(game_xml) {
+    // presume things will succeed
+    statusMessage.innerText = "";
+    statusIndicator.object.setValue(1);  
+    
+    var rgame = widget.preferenceForKey("rswGameName");
+    var result = "";
+    
+    $(game_xml).find("gameHeader").each(function() {
+        var header = $(this);
+        if (header.attr("gameId") == rgame) {
+            result = header.attr("numWaitingFor");
+        }
+    });
+        
+    if (result == "") {
+        statusIndicator.object.setValue(15);
+        statusMessage.innerText = "game not found or inactive";
+    }
+    else {
+        turnsDisplay.innerText = result;
+    }
+}
+

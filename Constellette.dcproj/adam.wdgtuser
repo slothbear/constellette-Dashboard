@@ -2,10 +2,25 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>Breakpoints</key>
+	<dict>
+		<key>widget.wdgt/main.js:145</key>
+		<string>-</string>
+		<key>widget.wdgt/main.js:150</key>
+		<string>-updateOutstanding</string>
+		<key>widget.wdgt/main.js:151</key>
+		<string>-updateOutstanding</string>
+		<key>widget.wdgt/main.js:177</key>
+		<string>-processGames</string>
+		<key>widget.wdgt/main.js:178</key>
+		<string>-processGames</string>
+	</dict>
+	<key>CYLastWindowPosition</key>
+	<string>{1171, 35}</string>
 	<key>ContentSplitViewGeometry</key>
 	<dict>
 		<key>ContentSplitViewConfig</key>
-		<integer>8</integer>
+		<integer>24</integer>
 		<key>SplitViewConfig</key>
 		<integer>3</integer>
 		<key>_indexOfCollapsedView</key>
@@ -46,11 +61,11 @@
 		</array>
 	</dict>
 	<key>MainWindowFrame</key>
-	<string>509 80 919 796 0 0 1440 878 </string>
+	<string>512 81 919 796 0 0 1440 878 </string>
 	<key>NavigatorSplitViewGeometry</key>
 	<dict>
 		<key>ContentSplitViewConfig</key>
-		<integer>9</integer>
+		<integer>5</integer>
 		<key>SplitViewConfig</key>
 		<integer>3</integer>
 		<key>_indexOfCollapsedView</key>
@@ -86,7 +101,7 @@
 		</array>
 		<key>Visible StackLayout Views</key>
 		<array>
-			<string>back</string>
+			<string>front</string>
 		</array>
 	</dict>
 </dict>
