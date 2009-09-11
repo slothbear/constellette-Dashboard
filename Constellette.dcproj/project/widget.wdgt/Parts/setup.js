@@ -7,7 +7,7 @@
 var dashcodePartSpecs = {
     "done": { "creationFunction": "CreateGlassButton", "onclick": "showFront", "text": "Done" },
     "feedback": { "creationFunction": "CreateGlassButton", "onclick": "showFront", "text": "Feedback" },
-    "gameDisplay": { "text": "floors3d", "view": "DC.Text" },
+    "gameDisplay": { "view": "DC.Text" },
     "gameLabel": { "text": "game", "view": "DC.Text" },
     "idField": { "view": "DC.TextField" },
     "info": { "backgroundStyle": "black", "creationFunction": "CreateInfoButton", "foregroundStyle": "white", "frontID": "front", "onclick": "showBack" },
@@ -15,9 +15,11 @@ var dashcodePartSpecs = {
     "labelID": { "text": "RSW id", "view": "DC.Text" },
     "labelPassword": { "text": "password", "view": "DC.Text" },
     "statusIndicator": { "criticalValue": 15, "onValue": 1, "view": "DC.Indicator", "warningValue": 10 },
-    "statusMessage": { "text": "status text goes here", "view": "DC.Text" },
+    "statusMessage": { "view": "DC.Text" },
     "turnLabel1": { "text": "outstanding", "view": "DC.Text" },
     "turnLabel2": { "text": "turns", "view": "DC.Text" },
-    "turnsDisplay": { "text": "6", "view": "DC.Text" }
+    "turnsDisplay": { "view": "DC.Text" }
 };
+
+
 

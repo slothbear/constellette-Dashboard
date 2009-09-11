@@ -11,6 +11,7 @@
 function load()
 {
     dashcode.setupParts();
+    retrievePrefs();
 }
 
 //
