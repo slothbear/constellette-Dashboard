@@ -18,10 +18,11 @@ function load()
 // Called when the widget has been removed from the Dashboard
 //
 function remove()
-{
-    // Stop any timers to prevent CPU usage
-    // Remove any preferences as needed
-    // widget.setPreferenceForKey(null, dashcode.createInstancePreferenceKey("your-key"));
+{ alert("removing preferences");
+    // Remove preferences
+    widget.setPreferenceForKey(null, "rswID");
+    widget.setPreferenceForKey(null, "rswPassword");
+    widget.setPreferenceForKey(null, "rswGameName");
 }
 
 //
@@ -93,7 +94,7 @@ function showFront(event)
 
     if (window.widget) {
         widget.prepareForTransition("ToFront");
-        stow_prefs();
+        stowPrefs();
     }
 
     front.style.display="block";
@@ -112,7 +113,7 @@ if (window.widget) {
 }
 
 
-function stow_prefs() {
+function stowPrefs() {
     widget.setPreferenceForKey(idField.value, "rswID");
 
     // Password is not normally displayed; don't overwrite

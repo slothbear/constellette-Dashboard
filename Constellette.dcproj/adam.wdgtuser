@@ -4,15 +4,15 @@
 <dict>
 	<key>Breakpoints</key>
 	<dict>
-		<key>widget.wdgt/main.js:145</key>
+		<key>widget.wdgt/main.js:146</key>
 		<string>-</string>
-		<key>widget.wdgt/main.js:150</key>
-		<string>-updateOutstanding</string>
 		<key>widget.wdgt/main.js:151</key>
 		<string>-updateOutstanding</string>
-		<key>widget.wdgt/main.js:177</key>
-		<string>-processGames</string>
+		<key>widget.wdgt/main.js:152</key>
+		<string>-updateOutstanding</string>
 		<key>widget.wdgt/main.js:178</key>
+		<string>-processGames</string>
+		<key>widget.wdgt/main.js:179</key>
 		<string>-processGames</string>
 	</dict>
 	<key>CYLastWindowPosition</key>
@@ -20,7 +20,7 @@
 	<key>ContentSplitViewGeometry</key>
 	<dict>
 		<key>ContentSplitViewConfig</key>
-		<integer>24</integer>
+		<integer>8</integer>
 		<key>SplitViewConfig</key>
 		<integer>3</integer>
 		<key>_indexOfCollapsedView</key>
@@ -61,7 +61,7 @@
 		</array>
 	</dict>
 	<key>MainWindowFrame</key>
-	<string>512 81 919 796 0 0 1440 878 </string>
+	<string>1 77 919 796 0 0 1440 878 </string>
 	<key>NavigatorSplitViewGeometry</key>
 	<dict>
 		<key>ContentSplitViewConfig</key>
@@ -93,7 +93,12 @@
 			</array>
 		</array>
 		<key>Objects view last selections</key>
-		<array/>
+		<array>
+			<array>
+				<integer>0</integer>
+				<integer>1</integer>
+			</array>
+		</array>
 		<key>Opened Steps</key>
 		<array>
 			<integer>0</integer>
@@ -101,7 +106,7 @@
 		</array>
 		<key>Visible StackLayout Views</key>
 		<array>
-			<string>front</string>
+			<string>back</string>
 		</array>
 	</dict>
 </dict>
