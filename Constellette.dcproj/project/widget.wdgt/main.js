@@ -199,3 +199,14 @@ function processGames(game_xml) {
     }
 }
 
+
+
+function clickDebug(event)
+{
+    widget.openURL("mailto:bugs@constella.org?subject=xml log&body=something went really really wrong.");
+}
+
+function clickFeedback(event)
+{
+    widget.openURL("http://constella.uservoice.com/");
+}

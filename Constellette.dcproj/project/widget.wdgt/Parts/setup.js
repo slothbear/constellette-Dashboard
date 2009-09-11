@@ -5,8 +5,9 @@
  code generator otherwise the changes will be lost.
  */
 var dashcodePartSpecs = {
+    "button": { "creationFunction": "CreateButton", "leftImageWidth": 5, "onclick": "clickDebug", "rightImageWidth": 5, "text": "debug" },
     "done": { "creationFunction": "CreateGlassButton", "onclick": "showFront", "text": "Done" },
-    "feedback": { "creationFunction": "CreateGlassButton", "onclick": "showFront", "text": "Feedback" },
+    "feedback": { "creationFunction": "CreateGlassButton", "onclick": "clickFeedback", "text": "Feedback" },
     "gameDisplay": { "view": "DC.Text" },
     "gameLabel": { "text": "game", "view": "DC.Text" },
     "idField": { "view": "DC.TextField" },
