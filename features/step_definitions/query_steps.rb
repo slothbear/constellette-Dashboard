@@ -9,3 +9,38 @@ end
 Then /^the widget shows the number of players without orders$/ do
   # processGames()/set numWaitingFor
 end
+
+
+Given /^there is a game in progress called northern6i$/ do
+  # joined 15Sep09
+end
+
+When /^I display the widget for the first time$/ do
+  # no preferences, no values for game/password/id
+end
+
+
+When /^press the little \(i\) to switch to the back panel$/ do
+  # pressed
+end
+
+When /^enter my id constella, password redacted, and game name northern6i$/ do
+  # entered
+end
+
+When /^press the Done button$/ do
+  # pressed
+end
+
+Then /^the front panel is displayed$/ do
+  # done by Done/showFront()/
+end
+
+Then /^displays the game name northern6i$/ do
+  # displays game name
+end
+
+Then /^updates the number of players outstanding$/ do
+  pending
+end
+

@@ -14,10 +14,10 @@ function load()
 {  alert("load()");
     dashcode.setupParts();
 //    retrievePrefs();
-    widget.setPreferenceForKey("constella", "rswID");
-    widget.setPreferenceForKey("bear.rsw", "rswPassword");
-    widget.setPreferenceForKey("northern6i", "rswGameName");
-    document.getElementById("gameDisplay").innerText = "northern6i";
+// temporarily make sure we start with nothing.
+    widget.setPreferenceForKey("", "rswID");
+    widget.setPreferenceForKey("", "rswPassword");
+    widget.setPreferenceForKey("", "rswGameName");
 }
 
 //
@@ -47,7 +47,7 @@ function hide()
 //
 function show()
 {   alert("show()");
-    updateOutstanding();
+//    updateOutstanding();
 }
 
 //
@@ -130,12 +130,16 @@ function stowPrefs() {
         widget.setPreferenceForKey(passwordField.value, "rswPassword");
         passwordField.value = "";  // clear so secret not revealed in future.
     }
-
-    widget.setPreferenceForKey(gameField.value, "rswGameName");
     
-    // Set the fields on the front & update everything
-    document.getElementById("gameDisplay").innerText = gameField.value;
-    document.getElementById("turnsDisplay").innerText = "--";
+    setGameName(gameField.value);
+}
+
+function setGameName(gameName) {
+    if (!gameName || 0 == gameName.length) {
+        return;
+    }
+    widget.setPreferenceForKey(gameName, "rswGameName");
+    document.getElementById("gameDisplay").innerText = gameName;
 }
 
 

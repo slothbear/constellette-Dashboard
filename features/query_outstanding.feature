@@ -9,3 +9,16 @@ Feature: player queries outstanding players
       When I display the widget
       Then the widget shows the number of players without orders
 
+	Scenario: enter my credentials and query outstanding
+	  Given there is a game in progress called northern6i
+	  When I display the widget for the first time
+	  And press the little (i) to switch to the back panel
+	  And enter my id constella, password redacted, and game name northern6i
+	  And press the Done button
+	  Then the front panel is displayed
+	  And displays the game name northern6i
+	  And updates the number of players outstanding
+	
+	
+	
+
