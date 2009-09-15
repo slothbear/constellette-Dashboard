@@ -19,6 +19,14 @@ Feature: player queries outstanding players
 	  And displays the game name northern6i
 	  And updates the number of players outstanding
 	
+	Scenario: update number of players outstanding upon display
+	  Given the game specified on the back panel is in progress
+	  When I display the widget
+	  Then the widget displays the current number of players without orders
+	
+	
+	
+	
 	
 	
 

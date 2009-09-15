@@ -41,6 +41,15 @@ Then /^displays the game name northern6i$/ do
 end
 
 Then /^updates the number of players outstanding$/ do
-  pending
+  # updated both with mock data and real server
 end
 
+
+
+Given /^the game specified on the back panel is in progress$/ do
+  # well it's in progress!
+end
+
+Then /^the widget displays the current number of players without orders$/ do
+  # displays correctly for mock data and newly entered prefs
+end

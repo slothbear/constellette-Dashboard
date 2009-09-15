@@ -11,13 +11,8 @@ var cs_debug = true;
 // Called by HTML body element's onload event when the widget is ready to start
 //
 function load()
-{  alert("load()");
+{   alert("load()");
     dashcode.setupParts();
-//    retrievePrefs();
-// temporarily make sure we start with nothing.
-    widget.setPreferenceForKey("", "rswID");
-    widget.setPreferenceForKey("", "rswPassword");
-    widget.setPreferenceForKey("", "rswGameName");
 }
 
 //
@@ -47,7 +42,8 @@ function hide()
 //
 function show()
 {   alert("show()");
-//    updateOutstanding();
+    retrievePrefs();
+    updateOutstanding();
 }
 
 //
@@ -152,7 +148,10 @@ function retrievePrefs() {
     var gamePref = widget.preferenceForKey("rswGameName"); 
     if (gamePref && gamePref.length > 0) {
         gameField.value = gamePref;
-    }    
+        document.getElementById("gameDisplay").innerText = gamePref;
+    }
+    
+    // don't display password -- make it a little harder to get
 }
 
 function updateOutstanding() {
