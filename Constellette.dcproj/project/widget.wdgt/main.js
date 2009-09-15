@@ -78,11 +78,11 @@ function showFront(event) {
 function stowPrefs() {
     widget.setPreferenceForKey(idField.value, "rswID");
 
-    // Password is not normally displayed; don't overwrite
-    // a valid pw with blanks.  a placeholder would be nice.
-    if (passwordField.value && passwordField.value.length > 0) {
-        widget.setPreferenceForKey(passwordField.value, "rswPassword");
-        passwordField.value = "";  // clear so secret not revealed in future.
+    // Password is displayed as ••••••••, don't overwrite
+    var pwValue = passwordField.value;
+    if (pwValue && pwValue.length > 0 && pwValue != "••••••••") {
+        widget.setPreferenceForKey(pwValue, "rswPassword");
+        passwordField.value = "••••••••";  // clear so secret not revealed in future.
     }
     
     setGameName(gameField.value);
@@ -109,7 +109,11 @@ function retrievePrefs() {
         document.getElementById("gameDisplay").innerText = gamePref;
     }
     
-    // don't display password -- make it a little harder to get
+    // if set, display password as some dots
+    var pwPref = widget.preferenceForKey("rswPassword"); 
+    if (pwPref && pwPref.length > 0) {
+        passwordField.value = "••••••••";
+    }    
 }
 
 function updateOutstanding() {
