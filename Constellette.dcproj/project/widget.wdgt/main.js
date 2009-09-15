@@ -3,15 +3,21 @@
  You may edit this file to customize your widget or web page 
  according to the license.txt file included in the project.
  */
+ 
+var cs_debug = true;
 
 //
 // Function: load()
 // Called by HTML body element's onload event when the widget is ready to start
 //
 function load()
-{
+{  alert("load()");
     dashcode.setupParts();
-    retrievePrefs();
+//    retrievePrefs();
+    widget.setPreferenceForKey("constella", "rswID");
+    widget.setPreferenceForKey("bear.rsw", "rswPassword");
+    widget.setPreferenceForKey("northern6i", "rswGameName");
+    document.getElementById("gameDisplay").innerText = "northern6i";
 }
 
 //
@@ -40,8 +46,8 @@ function hide()
 // Called when the widget has been shown
 //
 function show()
-{
-    // Restart any timers that were stopped on hide
+{   alert("show()");
+    updateOutstanding();
 }
 
 //
@@ -146,33 +152,62 @@ function retrievePrefs() {
 }
 
 function updateOutstanding() {
-    statusMessage.innerText = "... updating ..";
-    statusIndicator.object.setValue(10);
-    
     var postDataString = postData();
-    $.ajax({
-        type: "POST",
-        url: "https://rswgame.com/xml",
-        cache: false,
-        processData: false,
-        data: postDataString,
-        success: function(data){ processGames(data); },
-        contentType: "text/xml",
-        dataType: "xml"
-    });
+    if ("" == postDataString) {
+        statusMessage.innerText =
+        "Please fill in id, password, and game on the back.";
+        return;
+    }
+
+    statusMessage.innerText = "... updating ...";
+    statusIndicator.object.setValue(10);
+    retrieveGameStatus(postDataString);
+}
+
+function retrieveGameStatus(postDataString) {
+    alert("retrieveGameStatus() " + cs_debug);
+    if (!cs_debug) {
+        alert("get real server response");
+        $.ajax({
+            type: "POST",
+            url: "https://rswgame.com/xml",
+            cache: false,
+            processData: false,
+            data: postDataString,
+            success: function(data){ processGames(data); },
+            contentType: "text/xml",
+            dataType: "xml"
+        });
+    }
+    else {  // get mock response
+        alert("process mock response");
+        processGames("<?xml version='1.0' encoding='utf-8'?><response><gameHeader gameId='northern6i' numWaitingFor='6' state='active'/></response>");
+    }
+
 }
 
 function postData() {
-    return "<?xml version='1.0'?>" +
-    "<request command='list'>" + 
-    "<parameter keyword='accountId' value='" +
-    widget.preferenceForKey("rswID") + "' />" + 
-    "<parameter keyword='password' value='" + 
-    widget.preferenceForKey("rswPassword") + "' />" + 
-    "<parameter keyword='onlyMine' value='true' />" +
-    "<parameter keyword='format' value='xml' />" +
-    "<parameter keyword='active' value='true' />" +
-    "</request>";
+    var idPref = widget.preferenceForKey("rswID");
+    var gamePref = widget.preferenceForKey("rswGameName");
+    var passPref = widget.preferenceForKey("rswPassword");
+    
+    if (idPref && idPref.length > 0 &&
+        gamePref && gamePref.length > 0 &&
+        passPref && passPref.length > 0) {
+        return "<?xml version='1.0'?>" +
+            "<request command='list'>" + 
+            "<parameter keyword='accountId' value='" +
+            idPref + "' />" + 
+            "<parameter keyword='password' value='" + 
+            passPref + "' />" + 
+            "<parameter keyword='onlyMine' value='true' />" +
+            "<parameter keyword='format' value='xml' />" +
+            "<parameter keyword='active' value='true' />" +
+            "</request>";
+    }
+    else {
+        return "";
+    }
 }
 
 function processGames(game_xml) {
