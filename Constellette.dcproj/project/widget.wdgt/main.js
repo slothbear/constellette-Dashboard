@@ -7,6 +7,7 @@ if (window.widget) {
     widget.onsync = sync;
 }
 
+function sync() {}
 
 // called by <body> element onload event when the widget is ready to start
 function load() {
