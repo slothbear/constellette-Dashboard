@@ -60,13 +60,13 @@ body {
     overflow: hidden;
     position: absolute;
     margin-top: 0px;
-    top: 25px;
     left: 32px;
     color: rgb(255, 0, 0);
     text-align: center;
+    top: 21px;
     right: 26px;
     width: auto;
-    bottom: 236px;
+    bottom: 226px;
     height: auto;
 }
 
@@ -142,7 +142,7 @@ body {
     width: 48px;
     height: 48px;
     top: 203px;
-    left: 157px;
+    left: 153px;
 }
 
 #gameDisplay {
