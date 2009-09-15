@@ -4,10 +4,9 @@ if (window.widget) {
     widget.onremove = remove;
     widget.onhide = hide;
     widget.onshow = show;
-    widget.onsync = sync;
+    widget.onsync = function(){ };
 }
 
-function sync() {}
 
 // called by <body> element onload event when the widget is ready to start
 function load() {
