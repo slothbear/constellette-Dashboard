@@ -25,8 +25,8 @@ function load()
 // Called when the widget has been removed from the Dashboard
 //
 function remove()
-{ alert("removing preferences");
-    // Remove preferences
+{   // Remove preferences
+    alert("remove()");
     widget.setPreferenceForKey(null, "rswID");
     widget.setPreferenceForKey(null, "rswPassword");
     widget.setPreferenceForKey(null, "rswGameName");
@@ -37,7 +37,7 @@ function remove()
 // Called when the widget has been hidden
 //
 function hide()
-{
+{   alert("hide()");
     // Stop any timers to prevent CPU usage
 }
 
@@ -55,7 +55,7 @@ function show()
 // Called when the widget has been synchronized with .Mac
 //
 function sync()
-{
+{   alert("sync()");
     // Retrieve any preference values that you need to be synchronized here
     // Use this for an instance key's value:
     // instancePreferenceValue = widget.preferenceForKey(null, dashcode.createInstancePreferenceKey("your-key"));
@@ -71,7 +71,7 @@ function sync()
 // event: onClick event from the info button
 //
 function showBack(event)
-{
+{   alert("showBack()");
     var front = document.getElementById("front");
     var back = document.getElementById("back");
 
@@ -95,13 +95,14 @@ function showBack(event)
 // event: onClick event from the done button
 //
 function showFront(event)
-{
+{   alert("showFront()");
     var front = document.getElementById("front");
     var back = document.getElementById("back");
 
     if (window.widget) {
         widget.prepareForTransition("ToFront");
         stowPrefs();
+        updateOutstanding();
     }
 
     front.style.display="block";
@@ -135,7 +136,6 @@ function stowPrefs() {
     // Set the fields on the front & update everything
     document.getElementById("gameDisplay").innerText = gameField.value;
     document.getElementById("turnsDisplay").innerText = "--";
-    updateOutstanding();
 }
 
 
