@@ -15,12 +15,14 @@ var dashcodePartSpecs = {
     "labelGame": { "text": "game", "view": "DC.Text" },
     "labelID": { "text": "RSW id", "view": "DC.Text" },
     "labelPassword": { "text": "password", "view": "DC.Text" },
+    "labelPassword1": { "text": "hidden after entry", "view": "DC.Text" },
     "statusIndicator": { "criticalValue": 15, "onValue": 1, "view": "DC.Indicator", "warningValue": 10 },
     "statusMessage": { "view": "DC.Text" },
     "turnLabel1": { "text": "outstanding", "view": "DC.Text" },
     "turnLabel2": { "text": "turns", "view": "DC.Text" },
     "turnsDisplay": { "view": "DC.Text" }
 };
+
 
 
 

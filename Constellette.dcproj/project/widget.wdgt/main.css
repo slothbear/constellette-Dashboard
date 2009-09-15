@@ -319,3 +319,25 @@ body {
     bottom: 21px;
     height: auto;
 }
+
+#labelPassword1 {
+    text-overflow: ellipsis;
+    overflow: hidden;
+    position: absolute;
+    margin-top: 0px;
+    text-align: right;
+    top: 89px;
+    color: rgb(208, 208, 208);
+    font-family: Times;
+    font-style: italic;
+    font-size: 10px;
+    left: 18px;
+    right: 172px;
+    width: auto;
+    bottom: 177px;
+    height: auto;
+}
+
+.selected #labelPassword1 {
+    color: white;
+}
