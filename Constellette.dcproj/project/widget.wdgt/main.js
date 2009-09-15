@@ -198,12 +198,16 @@ function processGames(game_xml) {
     }
 }
 
-function clickDebug(event)
-{
+function clickDebug(event) {
+    showFront();
     widget.openURL("mailto:bugs@constella.org?subject=xml log&body=something went really really wrong.");
 }
 
-function clickFeedback(event)
-{
+function clickFeedback(event) {
+    showFront();
     widget.openURL("http://constella.uservoice.com/");
+}
+
+function myGames(event) {
+    widget.openURL("https://rswgame.com/listMyActive");
 }
