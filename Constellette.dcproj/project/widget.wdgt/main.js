@@ -3,6 +3,18 @@ var INDICATOR_GREEN = 1;
 var INDICATOR_YELLOW = 2;
 var INDICATOR_RED = 3;
 
+var PASSWORD_MASK = "••••••••••";
+
+// back panel fields
+var rsw_id;
+var rsw_game;
+
+// front panel fields
+var rsw_game_display;
+
+// global holding spot until someone pays for encryption
+var rsw_plaintext_password;
+
 if (window.widget) {
     widget.onremove = remove;
     widget.onhide = hide;
@@ -15,6 +27,16 @@ if (window.widget) {
 function load() {
     alert("load()");
     dashcode.setupParts();
+
+    // back panel
+    rsw_id = document.getElementById("idField");
+    rsw_game = document.getElementById("gameField");
+
+    // front panel
+    rsw_game_display = document.getElementById("gameDisplay");
+
+    // nowheresville
+    rsw_plaintext_password = "";
 }
 
 // remove called when the widget has been removed from the Dashboard
@@ -51,7 +73,6 @@ function showBack(event) {
 
     if (window.widget) {
         setTimeout('widget.performTransition();', 0);
-        retrievePrefs();
     }
 }
 
@@ -78,49 +99,45 @@ function showFront(event) {
 
 
 function stowPrefs() {
-    widget.setPreferenceForKey(idField.value, "rswID");
+    widget.setPreferenceForKey(rsw_id.value, "rswID");
+    widget.setPreferenceForKey(rsw_game.value, "rswGameName");
+    rsw_game_display.innerText = rsw_game.value;  // front panel
 
-    // Password is displayed as ••••••••, don't overwrite
+    // Password is displayed as ••dots, don't overwrite
     var pwValue = passwordField.value;
-    if (pwValue && pwValue.length > 0 && pwValue != "••••••••") {
-        widget.setPreferenceForKey(pwValue, "rswPassword");
-        passwordField.value = "••••••••";  // clear so secret not revealed in future.
-    }
-    
-    setGameName(gameField.value);
-}
+    if (pwValue == PASSWORD_MASK) return;
+    widget.setPreferenceForKey(pwValue, "rswPassword");
+    rsw_plaintext_password = pwValue;
 
-function setGameName(gameName) {
-    if (!gameName || 0 == gameName.length) {
-        return;
-    }
-    widget.setPreferenceForKey(gameName, "rswGameName");
-    document.getElementById("gameDisplay").innerText = gameName;
+    if (pwValue.length == 0) return;
+    passwordField.value = PASSWORD_MASK;
 }
 
 
 function retrievePrefs() {
-    var idPref = widget.preferenceForKey("rswID"); 
-    if (idPref && idPref.length > 0) {
-        idField.value = idPref;
+    var idPref = widget.preferenceForKey("rswID");
+    if (idPref) {
+        rsw_id.value = idPref;
     }
 
     var gamePref = widget.preferenceForKey("rswGameName"); 
-    if (gamePref && gamePref.length > 0) {
-        gameField.value = gamePref;
-        document.getElementById("gameDisplay").innerText = gamePref;
+    if (gamePref) {
+        rsw_game.value = gamePref;              // back panel
+        rsw_game_display.innerText = gamePref;  // front panel
     }
     
-    // if set, display password as some dots
     var pwPref = widget.preferenceForKey("rswPassword"); 
-    if (pwPref && pwPref.length > 0) {
-        passwordField.value = "••••••••";
-    }    
+    if (pwPref) {
+        rsw_plaintext_password = pwPref;
+        // display password as ••dots so it can't be seen.  haha.
+        passwordField.value = PASSWORD_MASK;
+    }
 }
 
 function updateOutstanding() {
-    var postDataString = postData();
-    if ("" == postDataString) {
+    if (0 == rsw_id.value.length
+        || 0 == rsw_game.value.length
+        || 0 == rsw_plaintext_password) {
         setStatus("Please fill in id, password, and game on the back.");
         statusIndicator.object.setValue(INDICATOR_OFF);
         return;
@@ -128,7 +145,8 @@ function updateOutstanding() {
 
     setStatus("... updating ...");
     statusIndicator.object.setValue(INDICATOR_YELLOW);
-    retrieveGameStatus(postDataString);
+
+    retrieveGameStatus(postData());
 }
 
 function retrieveGameStatus(postDataString) {
@@ -156,27 +174,16 @@ error: function (xhr, status, errt) { setErrorStatus(status); },
 }
 
 function postData() {
-    var idPref = widget.preferenceForKey("rswID");
-    var gamePref = widget.preferenceForKey("rswGameName");
-    var passPref = widget.preferenceForKey("rswPassword");
-    
-    if (idPref && idPref.length > 0 &&
-        gamePref && gamePref.length > 0 &&
-        passPref && passPref.length > 0) {
-        return "<?xml version='1.0'?>" +
-            "<request command='list'>" + 
-            "<parameter keyword='accountId' value='" +
-            idPref + "' />" + 
-            "<parameter keyword='password' value='" + 
-            passPref + "' />" + 
-            "<parameter keyword='onlyMine' value='true' />" +
-            "<parameter keyword='format' value='xml' />" +
-            "<parameter keyword='active' value='true' />" +
-            "</request>";
-    }
-    else {
-        return "";
-    }
+    return "<?xml version='1.0'?>" +
+        "<request command='list'>" +
+        "<parameter keyword='accountId' value='" +
+        rsw_id.value + "' />" +
+        "<parameter keyword='password' value='" +
+        rsw_plaintext_password + "' />" +
+        "<parameter keyword='onlyMine' value='true' />" +
+        "<parameter keyword='format' value='xml' />" +
+        "<parameter keyword='active' value='true' />" +
+        "</request>";
 }
 
 function processGames(game_xml) {
