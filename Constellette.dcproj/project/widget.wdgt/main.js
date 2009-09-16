@@ -118,12 +118,11 @@ function retrievePrefs() {
 function updateOutstanding() {
     var postDataString = postData();
     if ("" == postDataString) {
-        statusMessage.innerText =
-        "Please fill in id, password, and game on the back.";
+        setStatus("Please fill in id, password, and game on the back.");
         return;
     }
 
-    statusMessage.innerText = "... updating ...";
+    setStatus("... updating ...");
     statusIndicator.object.setValue(10);
     retrieveGameStatus(postDataString);
 }
@@ -139,6 +138,7 @@ function retrieveGameStatus(postDataString) {
             processData: false,
             data: postDataString,
             success: function(data){ processGames(data); },
+            error: function (xhr, status, errt) { setStatus(status); },
             contentType: "text/xml",
             dataType: "xml"
         });
@@ -176,7 +176,7 @@ function postData() {
 
 function processGames(game_xml) {
     // presume things will succeed
-    statusMessage.innerText = "";
+    setStatus("");
     statusIndicator.object.setValue(1);  
     
     var rgame = widget.preferenceForKey("rswGameName");
@@ -191,12 +191,18 @@ function processGames(game_xml) {
         
     if (result == "") {
         statusIndicator.object.setValue(15);
-        statusMessage.innerText = "game not found or inactive";
+        setStatus("game not found or inactive");
     }
     else {
         turnsDisplay.innerText = result;
     }
 }
+
+function setStatus(msg) {
+    statusMessage.innerText = msg;
+}
+
+// buttons and things that take us outside
 
 function clickDebug(event) {
     showFront();
@@ -213,7 +219,6 @@ function myGames(event) {
 }
 
 
-function goToConstelletteSite(event)
-{
+function goToConstelletteSite(event) {
     widget.openURL("http://constella.org");
 }
