@@ -16,7 +16,7 @@ var dashcodePartSpecs = {
     "labelID": { "text": "RSW id", "view": "DC.Text" },
     "labelPassword": { "text": "password", "view": "DC.Text" },
     "labelPassword1": { "text": "hidden after entry", "view": "DC.Text" },
-    "statusIndicator": { "criticalValue": 15, "onValue": 1, "view": "DC.Indicator", "warningValue": 10 },
+    "statusIndicator": { "criticalValue": 3, "onValue": 1, "view": "DC.Indicator", "warningValue": 2 },
     "statusMessage": { "view": "DC.Text" },
     "text": { "text": "Constellette", "view": "DC.Text" },
     "turnLabel1": { "text": "waiting for", "view": "DC.Text" },

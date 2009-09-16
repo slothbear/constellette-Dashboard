@@ -1,4 +1,7 @@
-var cs_debug = true;
+var INDICATOR_OFF = 0;
+var INDICATOR_GREEN = 1;
+var INDICATOR_YELLOW = 2;
+var INDICATOR_RED = 3;
 
 if (window.widget) {
     widget.onremove = remove;
@@ -119,17 +122,18 @@ function updateOutstanding() {
     var postDataString = postData();
     if ("" == postDataString) {
         setStatus("Please fill in id, password, and game on the back.");
+        statusIndicator.object.setValue(INDICATOR_OFF);
         return;
     }
 
     setStatus("... updating ...");
-    statusIndicator.object.setValue(10);
+    statusIndicator.object.setValue(INDICATOR_YELLOW);
     retrieveGameStatus(postDataString);
 }
 
 function retrieveGameStatus(postDataString) {
-    alert("retrieveGameStatus() " + cs_debug);
-    if (!cs_debug) {
+    alert("retrieveGameStatus()");
+    if (false) { // true == live operation, false == mock
         alert("get real server response");
         $.ajax({
             type: "POST",
@@ -138,7 +142,8 @@ function retrieveGameStatus(postDataString) {
             processData: false,
             data: postDataString,
             success: function(data){ processGames(data); },
-            error: function (xhr, status, errt) { setStatus(status); },
+error: function (xhr, status, errt) { setErrorStatus(status); },
+            timeout: 10000,
             contentType: "text/xml",
             dataType: "xml"
         });
@@ -177,7 +182,7 @@ function postData() {
 function processGames(game_xml) {
     // presume things will succeed
     setStatus("");
-    statusIndicator.object.setValue(1);  
+    statusIndicator.object.setValue(INDICATOR_GREEN);  
     
     var rgame = widget.preferenceForKey("rswGameName");
     var result = "";
@@ -190,8 +195,7 @@ function processGames(game_xml) {
     });
         
     if (result == "") {
-        statusIndicator.object.setValue(15);
-        setStatus("game not found or inactive");
+        setErrorStatus("game not found or inactive");
     }
     else {
         turnsDisplay.innerText = result;
@@ -200,6 +204,11 @@ function processGames(game_xml) {
 
 function setStatus(msg) {
     statusMessage.innerText = msg;
+}
+
+function setErrorStatus(msg) {
+    setStatus(msg + " (use Debug on back if needed)");
+    statusIndicator.object.setValue(INDICATOR_RED);
 }
 
 // buttons and things that take us outside
