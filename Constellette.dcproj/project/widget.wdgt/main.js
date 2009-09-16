@@ -100,7 +100,7 @@ function processGames(game_xml) {
     setStatus("");
     statusIndicator.object.setValue(INDICATOR_GREEN);  
     
-    var rgame = widget.preferenceForKey("rswGameName");
+    var rgame = rsw_game.value;
     var result = "";
     
     $(game_xml).find("gameHeader").each(function() {
