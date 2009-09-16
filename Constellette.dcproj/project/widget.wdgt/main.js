@@ -1,13 +1,18 @@
+var VERSION = "1.1.4";  // also change in widget prefs & back panel
+
 var INDICATOR_OFF = 0;
 var INDICATOR_GREEN = 1;
 var INDICATOR_YELLOW = 2;
 var INDICATOR_RED = 3;
 
 var PASSWORD_MASK = "••••••••••";
+var SHOW_PASSWORD = true ;  // not a logic puzzle
+var HIDE_PASSWORD = false ; // these "aid readability" of postData()
 
 // back panel fields
 var rsw_id;
 var rsw_game;
+var debug_log;
 
 // front panel fields
 var rsw_game_display;
@@ -61,8 +66,7 @@ function updateOutstanding() {
 
     setStatus("... updating ...");
     statusIndicator.object.setValue(INDICATOR_YELLOW);
-
-    retrieveGameStatus(postData());
+    retrieveGameStatus(postData(SHOW_PASSWORD));
 }
 
 function retrieveGameStatus(postDataString) {
@@ -72,26 +76,31 @@ function retrieveGameStatus(postDataString) {
         cache: false,
         processData: false,
         data: postDataString,
-        success: function(data){ processGames(data); },
-error: function (xhr, status, errt) { setErrorStatus(status); },
+        success: function(data) { processGames(data); },
+        complete: function(xhr, s) { debug_log = xhr.responseText;},
+        error: function (xhr, status, errt) { setErrorStatus(status); },
         timeout: 10000,
         contentType: "text/xml",
         dataType: "xml"
     });
 
-//    <mock> processGames("<?xml version='1.0' encoding='utf-8'?><response><gameHeader gameId='northern6i' numWaitingFor='6' state='active'/></response>");
+//    var mock_response = "<?xml version='1.0' encoding='utf-8'?><response><gameHeader gameId='northern6i' numWaitingFor='6' state='active'/></response>";
+//    processGames(mock_response);
+//    debug_log = mock_response;
+//    return;
 }
 
-function postData() {
+function postData(showPassword) {
     return "<?xml version='1.0'?>" +
         "<request command='list'>" +
         "<parameter keyword='accountId' value='" +
         rsw_id.value + "' />" +
         "<parameter keyword='password' value='" +
-        rsw_plaintext_password + "' />" +
+        (showPassword ? rsw_plaintext_password : "[HIDDEN]")
+        + "' />" +
         "<parameter keyword='onlyMine' value='true' />" +
         "<parameter keyword='format' value='xml' />" +
-        "<parameter keyword='active' value='true' />" +
+        "<parameter keyword='active' value='false' />" +
         "</request>";
 }
 
@@ -123,7 +132,7 @@ function setStatus(msg) {
 }
 
 function setErrorStatus(msg) {
-    setStatus(msg + " (use Debug on back if needed)");
+    setStatus(msg + " (use 'mail log' on back if needed)");
     statusIndicator.object.setValue(INDICATOR_RED);
 }
 
@@ -132,8 +141,16 @@ function setErrorStatus(msg) {
 //
 
 function clickDebug(event) {
-    showFront();
-    widget.openURL("mailto:bugs@constella.org?subject=xml log&body=something went really really wrong.");
+    front_display =
+        "version: " + VERSION +
+        "\ngame: " + rsw_game.value +
+        "\nwaiting: " + turnsDisplay.innerText +
+        "\nred/green indicator: " + statusIndicator.object.value +
+        "\nstatus message: " + statusMessage.innerText;
+    widget.openURL("mailto:bugs@constella.org?subject=Constellete log&body=Please describe what happened:\n\n\n" +
+        front_display + "\n\n" +
+        postData(HIDE_PASSWORD) + "\n\n" +  // get request w/o password
+        debug_log);
 }
 
 function clickFeedback(event) {

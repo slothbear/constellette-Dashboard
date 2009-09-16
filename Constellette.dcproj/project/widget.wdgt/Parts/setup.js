@@ -5,7 +5,7 @@
  code generator otherwise the changes will be lost.
  */
 var dashcodePartSpecs = {
-    "button": { "creationFunction": "CreateButton", "leftImageWidth": 5, "onclick": "clickDebug", "rightImageWidth": 5, "text": "debug" },
+    "button": { "creationFunction": "CreateButton", "leftImageWidth": 5, "onclick": "clickDebug", "rightImageWidth": 5, "text": "mail log" },
     "done": { "creationFunction": "CreateGlassButton", "onclick": "showFront", "text": "Done" },
     "feedback": { "creationFunction": "CreateGlassButton", "onclick": "clickFeedback", "text": "Feedback" },
     "gameDisplay": { "view": "DC.Text" },
@@ -21,8 +21,10 @@ var dashcodePartSpecs = {
     "text": { "text": "Constellette", "view": "DC.Text" },
     "turnLabel1": { "text": "waiting for", "view": "DC.Text" },
     "turnLabel2": { "text": "players", "view": "DC.Text" },
-    "turnsDisplay": { "view": "DC.Text" }
+    "turnsDisplay": { "view": "DC.Text" },
+    "versionDisplay": { "text": "version 1.1.4", "view": "DC.Text" }
 };
+
 
 
 

@@ -308,14 +308,14 @@ body {
     font-family: HelveticaNeue-Bold;
     font-size: 12px;
     text-align: center;
-    width: 60px;
     cursor: default;
     -khtml-user-select: none;
     position: absolute;
     right: auto;
     margin-top: 0px;
     top: 256px;
-    left: 120px;
+    left: 115px;
+    width: 70px;
     bottom: 21px;
     height: auto;
 }
@@ -367,5 +367,26 @@ body {
 }
 
 .selected #text {
+    color: white;
+}
+
+#versionDisplay {
+    text-overflow: ellipsis;
+    overflow: hidden;
+    position: absolute;
+    margin-top: 0px;
+    color: rgb(191, 191, 191);
+    font-size: 12px;
+    font-family: Verdana;
+    text-align: center;
+    top: 228px;
+    left: 93px;
+    right: 94px;
+    width: auto;
+    bottom: 57px;
+    height: auto;
+}
+
+.selected #versionDisplay {
     color: white;
 }
