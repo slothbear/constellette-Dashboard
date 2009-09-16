@@ -18,10 +18,12 @@ var dashcodePartSpecs = {
     "labelPassword1": { "text": "hidden after entry", "view": "DC.Text" },
     "statusIndicator": { "criticalValue": 15, "onValue": 1, "view": "DC.Indicator", "warningValue": 10 },
     "statusMessage": { "view": "DC.Text" },
+    "text": { "text": "Constellette", "view": "DC.Text" },
     "turnLabel1": { "text": "waiting for", "view": "DC.Text" },
     "turnLabel2": { "text": "players", "view": "DC.Text" },
     "turnsDisplay": { "view": "DC.Text" }
 };
+
 
 
 

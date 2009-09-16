@@ -211,3 +211,9 @@ function clickFeedback(event) {
 function myGames(event) {
     widget.openURL("https://rswgame.com/listMyActive");
 }
+
+
+function goToConstelletteSite(event)
+{
+    widget.openURL("http://constella.org");
+}

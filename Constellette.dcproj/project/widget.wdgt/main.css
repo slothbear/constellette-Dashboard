@@ -13,8 +13,8 @@ body {
     display: block;
     top: 0px;
     left: 0px;
-    width: 269px;
-    height: 280px;
+    width: 270px;
+    height: 300px;
 }
 
 #info {
@@ -63,10 +63,10 @@ body {
     left: 32px;
     color: rgb(255, 0, 0);
     text-align: center;
-    top: 21px;
+    top: 47px;
     right: 26px;
     width: auto;
-    bottom: 226px;
+    bottom: 219px;
     height: auto;
 }
 
@@ -81,13 +81,13 @@ body {
     overflow: hidden;
     position: absolute;
     margin-top: 0px;
-    top: 61px;
     color: rgb(125, 125, 125);
     text-align: left;
     left: 32px;
+    top: 89px;
     right: 194px;
     width: auto;
-    bottom: 200px;
+    bottom: 193px;
     height: auto;
 }
 
@@ -105,10 +105,10 @@ body {
     text-align: right;
     color: rgb(125, 125, 125);
     left: 17px;
-    top: 126px;
+    top: 152px;
     right: 171px;
     width: auto;
-    bottom: 135px;
+    bottom: 128px;
     height: auto;
 }
 
@@ -125,11 +125,11 @@ body {
     margin-top: 0px;
     text-align: right;
     color: rgb(125, 125, 125);
-    top: 148px;
-    left: 13px;
-    right: 175px;
+    left: 17px;
+    top: 177px;
+    right: 171px;
     width: auto;
-    bottom: 113px;
+    bottom: 105px;
     height: auto;
 }
 
@@ -141,8 +141,8 @@ body {
     position: absolute;
     width: 48px;
     height: 48px;
-    top: 203px;
-    left: 153px;
+    left: 154px;
+    top: 228px;
 }
 
 #gameDisplay {
@@ -153,11 +153,11 @@ body {
     font-size: 24px;
     font-family: Verdana;
     text-align: center;
-    top: 52px;
-    left: 87px;
-    right: 14px;
+    top: 80px;
+    left: 88px;
+    right: 13px;
     width: auto;
-    bottom: 200px;
+    bottom: 190px;
     height: auto;
 }
 
@@ -173,11 +173,11 @@ body {
     font-family: Verdana;
     font-size: 80px;
     text-align: center;
-    left: 114px;
-    top: 97px;
-    right: 27px;
+    top: 120px;
+    left: 113px;
+    right: 28px;
     width: auto;
-    bottom: 86px;
+    bottom: 84px;
     height: auto;
 }
 
@@ -205,11 +205,11 @@ body {
     color: rgb(151, 151, 151);
     font-size: 18px;
     text-align: right;
-    top: 29px;
     left: 11px;
+    top: 29px;
     right: 167px;
     width: auto;
-    bottom: 230px;
+    bottom: 247px;
     height: auto;
 }
 
@@ -230,7 +230,7 @@ body {
     left: 13px;
     right: 165px;
     width: auto;
-    bottom: 190px;
+    bottom: 210px;
     height: auto;
 }
 
@@ -251,7 +251,7 @@ body {
     top: 110px;
     right: 167px;
     width: auto;
-    bottom: 149px;
+    bottom: 169px;
     height: auto;
 }
 
@@ -314,8 +314,8 @@ body {
     position: absolute;
     right: auto;
     margin-top: 0px;
-    top: 236px;
-    left: 117px;
+    top: 256px;
+    left: 120px;
     bottom: 21px;
     height: auto;
 }
@@ -334,10 +334,38 @@ body {
     left: 18px;
     right: 172px;
     width: auto;
-    bottom: 177px;
+    bottom: 194px;
     height: auto;
 }
 
 .selected #labelPassword1 {
+    color: white;
+}
+
+#text {
+    text-overflow: ellipsis;
+    overflow: hidden;
+    position: absolute;
+    margin-top: 0px;
+    top: 22px;
+    font-size: 12px;
+    text-align: center;
+    font-family: Verdana;
+    font-style: italic;
+    left: 87px;
+    right: 80px;
+    width: auto;
+    bottom: 261px;
+    height: auto;
+    border-width: 2px !important;
+    -webkit-border-top-left-radius: 5px 5px;
+    -webkit-border-top-right-radius: 5px 5px;
+    -webkit-border-bottom-left-radius: 5px 5px;
+    -webkit-border-bottom-right-radius: 5px 5px;
+    background-color: rgb(204, 204, 204);
+    text-shadow: rgb(76, 76, 76) 1px 1px 2px;
+}
+
+.selected #text {
     color: white;
 }
