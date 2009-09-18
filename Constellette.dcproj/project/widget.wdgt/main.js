@@ -84,7 +84,7 @@ function retrieveGameStatus(postDataString) {
         dataType: "xml"
     });
 
-//    var mock_response = "<?xml version='1.0' encoding='utf-8'?><response><gameHeader gameId='northern6i' numWaitingFor='6' state='active'/></response>";
+//    var mock_response = "<?xml version='1.0' encoding='utf-8'?><response><gameHeader gameId='constel1a' numWaitingFor='14' state='active'/></response>";
 //    processGames(mock_response);
 //    debug_log = mock_response;
 //    return;
