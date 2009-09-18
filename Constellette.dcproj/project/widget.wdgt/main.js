@@ -105,25 +105,49 @@ function postData(showPassword) {
 }
 
 function processGames(game_xml) {
-    // Presume the operation will succeed.
-    setStatus("");
-    statusIndicator.object.setValue(INDICATOR_GREEN);  
-    
     var rgame = rsw_game.value;
-    var result = "";
+
+    // overall error with the request?
+    var errFound = false;
+    $(game_xml).find("response").each(function() {
+       var resp = $(this);
+       if (resp.attr("error") == "True") {
+          errFound = true;
+          var errs = $(resp).text().trim();
+          setErrorStatus(errs);
+       }
+    });
+    if (errFound) return;
     
+    // query succeeded -- find status of game we're tracking
+    var gameFound = false;
     $(game_xml).find("gameHeader").each(function() {
         var header = $(this);
         if (header.attr("gameId") == rgame) {
-            result = header.attr("numWaitingFor");
+            // if found, we're not parked in the red zone
+            gameFound = true;
+            statusIndicator.object.setValue(INDICATOR_GREEN);
+            turnsDisplay.innerText = "0";
+
+            var state = header.attr("state");
+            if (state == "completed") {
+                setStatus("game over");
+            }
+            else if (state == "pending") {
+                setStatus("not started yet");
+            }
+            else if (state == "active") {
+                turnsDisplay.innerText = header.attr("numWaitingFor");
+                setStatus("");
+            }
+            else {
+                setErrorStatus("unknown state: " + state);
+            }
         }
     });
-        
-    if (result == "") {
-        setErrorStatus("game not found or inactive");
-    }
-    else {
-        turnsDisplay.innerText = result;
+
+    if (!gameFound) {
+        setErrorStatus("game not found");
     }
 }
 
@@ -132,7 +156,7 @@ function setStatus(msg) {
 }
 
 function setErrorStatus(msg) {
-    setStatus(msg + " (use 'mail log' on back if needed)");
+    setStatus(msg + " (use 'mail log' on back)");
     statusIndicator.object.setValue(INDICATOR_RED);
 }
 
@@ -167,6 +191,14 @@ function goToConstelletteSite(event) {
     widget.openURL("http://constella.org");
 }
 
+// utility functions
+String.prototype.trim = function () {
+    return this.replace(/^\s+|\s+$/g, "");
+};
+
+//
+// standard widget lifecycle functions
+//
 
 // called by <body> element onload event when the widget is ready to start
 function load() {
